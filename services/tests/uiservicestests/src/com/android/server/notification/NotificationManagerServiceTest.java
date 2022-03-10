@@ -248,6 +248,8 @@ public class NotificationManagerServiceTest extends UiServiceTestCase {
     @Mock
     Resources mResources;
     @Mock
+    ActivityManagerInternal mAmi;
+    @Mock
     RankingHandler mRankingHandler;
     @Mock
     protected PackageManagerInternal mPackageManagerInternal;
