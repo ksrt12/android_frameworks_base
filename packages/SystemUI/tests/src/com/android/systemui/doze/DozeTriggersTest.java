@@ -31,6 +31,7 @@ import android.app.AlarmManager;
 import android.hardware.Sensor;
 import android.hardware.display.AmbientDisplayConfiguration;
 import android.os.Handler;
+import android.os.Looper;
 import android.testing.AndroidTestingRunner;
 import android.testing.TestableLooper;
 import android.testing.TestableLooper.RunWithLooper;
@@ -74,8 +75,6 @@ public class DozeTriggersTest extends SysuiTestCase {
     private BroadcastDispatcher mBroadcastDispatcher;
     @Mock
     private DockManager mDockManager;
-    @Mock
-    private ProximitySensor.ProximityCheck mProximityCheck;
 
     private DozeTriggers mTriggers;
     private FakeSensorManager mSensors;
@@ -99,8 +98,8 @@ public class DozeTriggersTest extends SysuiTestCase {
         mProximitySensor = new FakeProximitySensor(thresholdSensor,  null, mExecutor);
 
         mTriggers = new DozeTriggers(mContext, mMachine, mHost, mAlarmManager, config, parameters,
-                asyncSensorManager, wakeLock, true, mDockManager, mProximitySensor,
-                mProximityCheck, mock(DozeLog.class), mBroadcastDispatcher);
+                asyncSensorManager, Handler.createAsync(Looper.myLooper()), wakeLock, true,
+                mDockManager, mProximitySensor, mock(DozeLog.class), mBroadcastDispatcher);
         waitForSensorManager();
     }
 
